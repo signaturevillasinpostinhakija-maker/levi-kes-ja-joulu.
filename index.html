@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LEVI – Kesäjoulu Disco</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,sans-serif;color:white;text-align:center;background:radial-gradient(circle at top,#60208e,#16082e 65%,#06172d);min-height:100vh}
+header{padding:20px;color:#65f7ff;font-size:24px;font-weight:900;letter-spacing:4px}
+main{max-width:850px;margin:auto;padding:20px}
+h1{font-size:clamp(42px,9vw,82px);line-height:1.05;background:linear-gradient(90deg,#fff,#65f7ff,#ff58d7);background-clip:text;color:transparent}
+.card{background:#ffffff12;border:1px solid #ffffff35;border-radius:22px;padding:22px;margin:18px 0;box-shadow:0 10px 35px #0003}
+button,a{display:inline-block;padding:12px 17px;margin:5px;border:1px solid #65f7ff66;border-radius:14px;background:#ffffff14;color:white;font-weight:bold;text-decoration:none;cursor:pointer;font-size:16px}
+button:hover,a:hover{background:#ff43d044}
+.song{display:block;width:100%;text-align:left}
+#snow{height:95px;overflow:hidden;position:relative}
+.flake{position:absolute;top:-25px;animation:fall 4s linear infinite}
+@keyframes fall{to{transform:translateY(130px) rotate(360deg)}}
+#surprise{display:none;padding:16px;color:#65f7ff;font-weight:bold}
+#score{font-size:30px;color:#ff8ee5}
+</style>
+</head>
+<body>
+<header>✦ L E V I ✦</header>
+<main>
+<p>☀️ KESÄ + ❄️ JOULU = BILEET</p>
+<h1>KESÄJOULU<br>DISCO 🎄</h1>
+<p>Tervetuloa LEVI:n neonväriseen jouludiscoon!</p>
+
+<section class="card">
+<h2>🎶 Joululaulut</h2>
+<p>Valitse oma jouludiscobiisisi!</p>
+<button class="song" onclick="pick(this,'Joulupuu on rakennettu')">🎄 Joulupuu on rakennettu</button>
+<button class="song" onclick="pick(this,'Jingle Bells')">🔔 Jingle Bells</button>
+<button class="song" onclick="pick(this,'Tulkoon joulu')">🕯️ Tulkoon joulu</button>
+<button class="song" onclick="pick(this,'Last Christmas')">💖 Last Christmas</button>
+<p id="selected">Valitse kappale! 🎧</p>
+<p>Painikkeet näyttävät valinnan. Voit kuunnella musiikkia musiikkipalvelussa.</p>
+</section>
+
+<section class="card">
+<h2>💃 Koko Suomi tanssii</h2>
+<p>Kesäjouluun kuuluu tanssihitti!</p>
+<a href="https://open.spotify.com/track/69LPgoe2Rjn0KSTSOMTr2W" target="_blank" rel="noopener noreferrer">▶ Kuuntele Spotifyssa</a>
+<div id="snow" aria-label="Lumihiutaleanimaatio"></div>
+<button onclick="toggleSnow()" id="snowButton">❄️ Lumihiutaleet: päällä</button>
+</section>
+
+<section class="card">
+<h2>🎁 Salainen jouluyllätys</h2>
+<div id="gift" style="font-size:65px">🎁</div>
+<button onclick="openGift()">Avaa yllätys!</button>
+<div id="surprise">🎉 HYVÄÄ KESÄJOULUA! 🎉<br>Olet LEVI:n VIP-tanssija! Tanssi kuin lumiukko auringossa! ☀️❄️</div>
+</section>
+
+<section class="card">
+<h2>🪩 Tanssipeli</h2>
+<p>Kerää bilepisteitä painamalla nappia!</p>
+<p id="score">0 ⭐</p>
+<button onclick="dance()">TANSSI! 💃</button>
+<p id="message">Valmiina tanssilattialle?</p>
+</section>
+</main>
+<footer style="padding:25px">LEVI • Kesäjoulu Disco ❄️✨</footer>
+<script>
+function pick(btn,name){
+ document.querySelectorAll('.song').forEach(b=>b.style.borderColor='#65f7ff66');
+ btn.style.borderColor='#ff58d7';
+ document.getElementById('selected').textContent='Valitsit: '+name+' 🎧';
+}
+let snowOn=true;
+function toggleSnow(){
+ snowOn=!snowOn;
+ document.querySelectorAll('.flake').forEach(f=>f.style.display=snowOn?'block':'none');
+ document.getElementById('snowButton').textContent='❄️ Lumihiutaleet: '+(snowOn?'päällä':'pois päältä');
+}
+for(let i=0;i<22;i++){
+ let f=document.createElement('span');
+ f.className='flake';f.textContent='❄';
+ f.style.left=Math.random()*98+'%';
+ f.style.animationDelay=(-Math.random()*4)+'s';
+ f.style.animationDuration=(2+Math.random()*4)+'s';
+ f.style.fontSize=(12+Math.random()*18)+'px';
+ document.getElementById('snow').appendChild(f);
+}
+function openGift(){
+ document.getElementById('surprise').style.display='block';
+ document.getElementById('gift').textContent='🎉';
+}
+let score=0;
+function dance(){
+ score+=10;
+ document.getElementById('score').textContent=score+' ⭐';
+ document.getElementById('message').textContent='Jee! Kesäjoulu rokkaa! 🕺✨';
+}
+</script>
+</body>
+</html>
